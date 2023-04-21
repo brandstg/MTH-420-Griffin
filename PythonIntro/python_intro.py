@@ -1,20 +1,25 @@
 # python_intro.py
 """Python Essentials: Introduction to Python.
-<Name>
-<Class>
-<Date>
+Griffin Brandstetter
+MTH 420
+4/14/2023
 """
 
 
 # Problem 1 (write code below)
 
+if __name__ == "__main__":
+    print("Hello, world!") 
 
 # Problem 2
+
+
 def sphere_volume(r):
     """ Return the volume of the sphere of radius 'r'.
     Use 3.14159 for pi in your computation.
     """
-    raise NotImplementedError("Problem 2 Incomplete")
+    pi = 3.14159
+    return 4/3 *pi*r**2
 
 
 # Problem 3
@@ -22,7 +27,7 @@ def isolate(a, b, c, d, e):
     """ Print the arguments separated by spaces, but print 5 spaces on either
     side of b.
     """
-    raise NotImplementedError("Problem 3 Incomplete")
+    print(a, '    ',b,'    ',c, d, e)
 
 
 # Problem 4
@@ -36,18 +41,13 @@ def first_half(my_string):
         >>> first_half("ipython")
         'ipy'
     """
-    raise NotImplementedError("Problem 4 Incomplete")
+    length = len(my_string)
+    half = length // 2
+    return my_string[:half]
+    
 
 def backward(my_string):
-    """ Return the reverse of the string 'my_string'.
-
-    Examples:
-        >>> backward("python")
-        'nohtyp'
-        >>> backward("ipython")
-        'nohtypi'
-    """
-    raise NotImplementedError("Problem 4 Incomplete")
+    return my_string[::-1]
 
 
 # Problem 5
@@ -66,7 +66,15 @@ def list_ops():
         >>> list_ops()
         ['fox', 'hawk', 'dog', 'bearhunter']
     """
-    raise NotImplementedError("Problem 5 Incomplete")
+    animals = ["bear", "ant", "cat", "dog"]
+    animals.append("eagle")
+    animals[2] = "fox"
+    animals.remove(animals[1])
+    animals = sorted(animals)[::-1]
+    x = animals.index('eagle')
+    animals[x] = 'hawk'
+    animals[-1] = animals[-1] + 'hunter'
+    return animals
 
 
 # Problem 6
@@ -79,7 +87,15 @@ def pig_latin(word):
         >>> pig_latin("banana")
         'ananabay'
     """
-    raise NotImplementedError("Problem 6 Incomplete")
+    vowels = ['a', 'e', 'i', 'o', 'u']
+    
+    if word[0] in vowels:
+        ordway = word + 'hay'
+    else:
+        ordway = word[1:] + word[0] + 'ay'
+        
+    return(ordway)
+
 
 
 # Problem 7
@@ -87,11 +103,30 @@ def palindrome():
     """ Find and retun the largest panindromic number made from the product
     of two 3-digit numbers.
     """
-    raise NotImplementedError("Problem 7 Incomplete")
+    n = 101
+    m = 101
+    nm = n*m
+    
+    while n < 1000:
+        m = 101
+        while m < 1000:
+            if n*m > nm:
+                if backward(str(n*m)) == str(n*m):
+                    nm = n*m
+            m += 1
+        n += 1
+        
+    return nm
 
 # Problem 8
 def alt_harmonic(n):
     """ Return the partial sum of the first n terms of the alternating
     harmonic series, which approximates ln(2).
     """
-    raise NotImplementedError("Problem 8 Incomplete")
+    ln = 0
+    for j in range(n):
+        j = float(j)
+        ln += ((-1)**j)/(j+1)
+    return(ln)
+        
+
