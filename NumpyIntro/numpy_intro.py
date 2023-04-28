@@ -1,19 +1,27 @@
 # numpy_intro.py
 """Python Essentials: Intro to NumPy.
-<Name>
-<Class>
-<Date>
+Griffin Brandstetter
+MTH 420
+4/26/23
 """
 
+import numpy as np
 
 def prob1():
     """ Define the matrices A and B as arrays. Return the matrix product AB. """
-    raise NotImplementedError("Problem 1 Incomplete")
+    A = np.array( [ [3, -1, 4], [1, 5, -9] ] )
+    B = np.array( [ [2, 6, -5, 3], [5, -8, 9, 7], [9, -3, -2, -2] ] )
+    AB = np.dot(A, B)
+    return(AB)
+
 
 
 def prob2():
     """ Define the matrix A as an array. Return the matrix -A^3 + 9A^2 - 15A. """
-    raise NotImplementedError("Problem 2 Incomplete")
+    A = np.array( [ [3, 1, 4], [1, 5, 9], [-5, 3, 1] ] )
+    M = -1 * np.dot(np.dot(A,A),A) + 9 * np.dot(A,A) - 15 * A
+    return(M)
+
 
 
 def prob3():
@@ -21,7 +29,15 @@ def prob3():
     this section of the manual (not np.array()). Calculate the matrix product ABA,
     change its data type to np.int64, and return it.
     """
-    raise NotImplementedError("Problem 3 Incomplete")
+    A = np.ones((7,7))
+    A = np.triu(A)
+    B = np.full((7,7), 6)
+    B = np.triu(B)
+    B = B -1
+    ABA = np.dot(np.dot(A,B),A)
+    ABA = ABA.astype(np.int64)
+    return(ABA)
+    
 
 
 def prob4(A):
@@ -33,7 +49,10 @@ def prob4(A):
         >>> prob4(A)
         array([0, 0, 3])
     """
-    raise NotImplementedError("Problem 4 Incomplete")
+    B = np.copy(A)
+    index = B < 0
+    B[index] = 0
+    return(B)
 
 
 def prob5():
@@ -45,9 +64,17 @@ def prob5():
     where I is the 3x3 identity matrix and each 0 is a matrix of all zeros
     of the appropriate size.
     """
-    raise NotImplementedError("Problem 5 Incomplete")
-
-
+    A = np.arange(6).reshape((2,3))
+    B = np.full((3,3), 3)
+    B = np.tril(B)
+    C = -2 * np.eye(3)
+    OATI = np.hstack((np.zeros((3,3)), np.transpose(A), np.eye(3)))
+    AOO = np.hstack((A, np.zeros((2,5))))
+    BOC = np.hstack((B, np.zeros((3,2)), C))
+    return(np.vstack((OATI, AOO, BOC)))
+    
+print(prob5())
+           
 def prob6(A):
     """ Divide each row of 'A' by the row sum and return the resulting array.
     Use array broadcasting and the axis argument instead of a loop.
@@ -59,7 +86,11 @@ def prob6(A):
                [ 0.        ,  1.        ,  0.        ],
                [ 0.33333333,  0.33333333,  0.33333333]])
     """
-    raise NotImplementedError("Problem 6 Incomplete")
+    B = 1/A.sum(axis=0)
+    return(B*A)
+
+C = np.arange(16).reshape((4,4))
+print(prob6(C))
 
 
 def prob7():
