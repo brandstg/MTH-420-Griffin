@@ -19,7 +19,7 @@ def sphere_volume(r):
     Use 3.14159 for pi in your computation.
     """
     pi = 3.14159
-    return 4/3 *pi*r**2
+    return 4/3 *pi*(r**3)
 
 
 # Problem 3
@@ -27,7 +27,7 @@ def isolate(a, b, c, d, e):
     """ Print the arguments separated by spaces, but print 5 spaces on either
     side of b.
     """
-    print(a, '    ',b,'    ',c, d, e)
+    print(a, '   ',b,'   ',c, d, e)
 
 
 # Problem 4
