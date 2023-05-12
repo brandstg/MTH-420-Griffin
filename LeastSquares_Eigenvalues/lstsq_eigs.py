@@ -12,6 +12,25 @@
 
 import numpy as np
 from matplotlib import pyplot as plt
+from scipy import linalg as la
+    
+def gram(A):
+    m = A.shape[0]
+    n = A.shape[1]
+    Q = A.copy()
+    Q = np.array(Q, dtype=float)
+    R = np.eye(n)
+    
+    n = Q.shape[1]
+    for i in range(n):
+        R[i,i] = np.sqrt(np.dot(Q[:,i].T, Q[:,i]))
+        Q[:,i] = Q[:,i] / R[i,i]
+        for j in range(i+1, n):
+            R[i,j] = np.dot(Q[:,j], Q[:,i])
+            Q[:,j] = Q[:,j] - R[i,j]*Q[:,i]
+        
+    return(Q,R)
+
 
 
 # Problem 1
@@ -26,7 +45,14 @@ def least_squares(A, b):
     Returns:
         x ((n, ) ndarray): The solution to the normal equations.
     """
-    raise NotImplementedError("Problem 1 Incomplete")
+    Q,R = gram(A)
+    b = np.array(b, dtype=float)
+    x = la.solve_triangular(R, np.dot(Q.T,b))
+    return(x)
+
+A = np.array([[1,1,1],[1,2,4],[1,3,9],[1,4,16]])
+b = [1,3,19,2]
+print(least_squares(A,b))
 
 # Problem 2
 def line_fit():
@@ -34,7 +60,20 @@ def line_fit():
     index for the data in housing.npy. Plot both the data points and the least
     squares line.
     """
-    raise NotImplementedError("Problem 2 Incomplete")
+    data = np.load('housing.npy')
+    n = data.shape[0]
+    A = np.column_stack((data[:,0], np.ones(n)))
+    b = data[:,1]
+    
+    m = least_squares(A,b)
+    
+    x = np.linspace(0,16,100)
+    ax1 = plt.subplot(211)
+    ax1.plot(data[:,0], data[:,1], 'k', marker='x',lw=2, linestyle="")
+    ax1.plot(x,np.dot(m, np.array((x,1))))
+    plt.show
+    
+line_fit()
 
 
 # Problem 3
@@ -43,7 +82,34 @@ def polynomial_fit():
     the year to the housing price index for the data in housing.npy. Plot both
     the data points and the least squares polynomials in individual subplots.
     """
-    raise NotImplementedError("Problem 3 Incomplete")
+    from scipy import linalg as la
+    data = np.load('housing.npy')
+    n = data.shape[0]
+    A = np.column_stack((data[:,0], np.ones(n)))
+    b = data[:,1]
+    
+    f=[0,0,0,0]
+    
+    for j in range(4):
+        A = np.vander(data[:,0],3*j+4)
+        f[j] = np.poly1d(la.lstsq(A,b)[0])
+    
+    fig, ((ax0, ax1), (ax2, ax3)) = plt.subplots(2, 2)
+    
+    x = np.linspace(0,16,100)
+    ax0.plot(data[:,0], data[:,1], 'k', marker='x',lw=2, linestyle="")
+    ax0.plot(x,f[0](x))
+    ax1.plot(data[:,0], data[:,1], 'k', marker='x',lw=2, linestyle="")
+    ax1.plot(x,f[1](x))
+    ax2.plot(data[:,0], data[:,1], 'k', marker='x',lw=2, linestyle="")
+    ax2.plot(x,f[2](x))
+    ax3.plot(data[:,0], data[:,1], 'k', marker='x',lw=2, linestyle="")
+    ax3.plot(x,f[3](x))
+    plt.show
+    
+    fig.show
+    
+polynomial_fit()
 
 
 def plot_ellipse(a, b, c, d, e):
