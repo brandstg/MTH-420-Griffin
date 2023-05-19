@@ -1,0 +1,23 @@
+05/19/23 12:59
+
+Problem 1 (15 points):
+Score += 15
+
+Problem 2 (15 points):
+line_fit() plot incorrect
+Score += 0
+
+Problem 3 (15 points):
+Score += 15
+
+Code Quality (5 points):
+Score += 5
+
+Total score: 35/50 = 70.0%
+
+
+Comments:
+	no plot displayed for problem 1
+
+-------------------------------------------------------------------------------
+
