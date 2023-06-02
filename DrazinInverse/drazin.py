@@ -50,7 +50,14 @@ def is_drazin(A, Ad, k):
     Returns:
         (bool) True of Ad is the Drazin inverse of A, False otherwise.
     """
-    raise NotImplementedError("Problem 1 Incomplete")
+    if (np.dot(A,Ad) != np.dot(Ad,A)).any():
+        return False
+    if (np.dot(np.linalg.matrix_power(A, k+1),Ad) != np.linalg.matrix_power(A, k)).any():
+        return False
+    if (np.dot(np.dot(Ad,A),Ad) != Ad).any():
+        return False
+    else:
+        return True
 
 
 # Problem 2
@@ -63,7 +70,17 @@ def drazin_inverse(A, tol=1e-4):
     Returns:
        ((n,n) ndarray) The Drazin inverse of A.
     """
-    raise NotImplementedError("Problem 2 Incomplete")
+    n = np.shape(A)[0]
+    f = lambda x: abs(x) > tol
+    T1,Q1,k1 = la.schur(A, sort=f)
+    f = lambda x: abs(x) <= tol
+    T2,Q2,k2 = la.schur(A, sort=f)
+    U = np.hstack((Q1[:,:k1],Q2[:,:n-k1]))
+    V = np.dot(la.inv(U),np.dot(A,U))
+    Z = np.zeros((n,n))
+    if k1 != 0:
+        Z[:k1,:k1] = la.inv(V[:k1,:k1])
+    return(np.dot(U,np.dot(Z,la.inv(U))))
 
 
 # Problem 3
@@ -77,8 +94,27 @@ def effective_resistance(A):
         ((n,n) ndarray) The matrix where the ijth entry is the effective
         resistance from node i to node j.
     """
-    raise NotImplementedError("Problem 3 Incomplete")
+    n = A.shape[0]
+    D = np.diag(np.sum(A, axis=0))
+    L = D - A
+    I = np.identity(n)
+    R = np.identity(n)
+    for j in range(n):
+        Lt = np.copy(L)
+        Lt[:,j] = np.copy(I[:,j])
+        Ltd = drazin_inverse(Lt)
+        d = np.copy(np.diagonal(Ltd))
+        d[j] = 0
+        R[:,j] = d
+        
+    return(R)
+        
+    
 
+print(effective_resistance(np.array([[0,4,1,0],
+                              [4,0,1,0],
+                              [1,1,0,1],
+                              [0,0,1,0]])))
 
 # Problems 4 and 5
 class LinkPredictor:
@@ -110,7 +146,7 @@ class LinkPredictor:
         Raises:
             ValueError: If node is not in the graph.
         """
-        raise NotImplementedError("Problem 5 Incomplete"
+        raise NotImplementedError("Problem 5 Incomplete")
 
 
     def add_link(self, node1, node2):

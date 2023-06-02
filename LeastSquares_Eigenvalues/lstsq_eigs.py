@@ -31,7 +31,7 @@ def gram(A):
         
     return(Q,R)
 
-
+gram()
 
 # Problem 1
 def least_squares(A, b):
