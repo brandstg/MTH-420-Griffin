@@ -10,10 +10,9 @@ import numpy as np
 def prob1():
     """ Define the matrices A and B as arrays. Return the matrix product AB. """
     A = np.array( [ [3, -1, 4], [1, 5, -9] ] )
-    B = np.array( [ [2, 6, -5, 3], [5, -8, 9, 7], [9, -3, -2, -2] ] )
+    B = np.array( [ [2, 6, -5, 3], [5, -8, 9, 7], [9, -3, -2, -3] ] )
     AB = np.dot(A, B)
     return(AB)
-
 
 
 def prob2():
@@ -31,15 +30,13 @@ def prob3():
     """
     A = np.ones((7,7))
     A = np.triu(A)
-    B = np.full((7,7), 6)
-    B = np.triu(B)
-    B = B -1
+    B = np.full((7,7), -6)
+    B = np.tril(B)
+    B = B +5
     ABA = np.dot(np.dot(A,B),A)
     ABA = ABA.astype(np.int64)
     return(ABA)
     
-
-
 def prob4(A):
     """ Make a copy of 'A' and use fancy indexing to set all negative entries of
     the copy to 0. Return the resulting array.
@@ -64,16 +61,16 @@ def prob5():
     where I is the 3x3 identity matrix and each 0 is a matrix of all zeros
     of the appropriate size.
     """
-    A = np.arange(6).reshape((2,3))
+    At = np.arange(6).reshape((3,2))
+    A = np.transpose(At)
     B = np.full((3,3), 3)
     B = np.tril(B)
     C = -2 * np.eye(3)
-    OATI = np.hstack((np.zeros((3,3)), np.transpose(A), np.eye(3)))
+    OATI = np.hstack((np.zeros((3,3)), At, np.eye(3)))
     AOO = np.hstack((A, np.zeros((2,5))))
     BOC = np.hstack((B, np.zeros((3,2)), C))
     return(np.vstack((OATI, AOO, BOC)))
-    
-print(prob5())
+
            
 def prob6(A):
     """ Divide each row of 'A' by the row sum and return the resulting array.
@@ -86,11 +83,12 @@ def prob6(A):
                [ 0.        ,  1.        ,  0.        ],
                [ 0.33333333,  0.33333333,  0.33333333]])
     """
-    B = 1/A.sum(axis=0)
-    return(B*A)
+    B = 1/A.sum(axis=1)
+    C = np.transpose(A)*B
+    return(np.transpose(C))
 
-C = np.arange(16).reshape((4,4))
-print(prob6(C))
+A = np.array([[1,1,0],[0,1,1],[1,9,1]])
+print(prob6(A))
 
 
 def prob7():

@@ -47,8 +47,10 @@ def prob2():
     x = np.linspace(-2*np.pi, 2*np.pi, 100)
     cos = np.cos(x)
     sin = np.sin(x)
+    arctan = np.arctan(x)
     plt.plot(x, cos)
     plt.plot(x, sin)
+    plt.plot(x, arctan)
     plt.show()
     
 prob2()
@@ -146,7 +148,7 @@ def prob6():
         3. Choose a non-default color scheme.
         4. Include a color scale bar for each subplot.
     """
-    x = np.linspace(-np.pi, np.pi, 100)
+    x = np.linspace(-2*np.pi, 2*np.pi, 100)
     y = x.copy()
     X, Y = np.meshgrid(x, y)
     Z = np.sin(X) * np.sin(Y) / (X*Y)
