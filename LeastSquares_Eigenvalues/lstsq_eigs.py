@@ -31,8 +31,6 @@ def gram(A):
         
     return(Q,R)
 
-gram()
-
 # Problem 1
 def least_squares(A, b):
     """Calculate the least squares solutions to Ax = b by using the QR
@@ -68,9 +66,10 @@ def line_fit():
     m = least_squares(A,b)
     
     x = np.linspace(0,16,100)
+    y = m[0]*x + m[1]
     ax1 = plt.subplot(211)
     ax1.plot(data[:,0], data[:,1], 'k', marker='x',lw=2, linestyle="")
-    ax1.plot(x,np.dot(m, np.array((x,1))))
+    ax1.plot(x,y)
     plt.show
     
 line_fit()
