@@ -32,9 +32,9 @@ def prob1():
     n = 100, 200, ..., 1000. Plot and show the resulting array.
     """
     P = [var_of_means(100), var_of_means(200), var_of_means(300), var_of_means(400), var_of_means(500), var_of_means(600), var_of_means(700), var_of_means(800), var_of_means(900), var_of_means(1000)]
-    plt.plot(P) 
-    plt.show()  
-    
+    plt.plot(P)
+    plt.show()
+
 prob1()
 
 
@@ -52,7 +52,7 @@ def prob2():
     plt.plot(x, sin)
     plt.plot(x, arctan)
     plt.show()
-    
+
 prob2()
 
 
@@ -73,7 +73,7 @@ def prob3():
     plt.xlim(-2, 6)
     plt.ylim(-6, 6)
     plt.show()
-    
+
 prob3()
 
 
@@ -97,7 +97,7 @@ def prob4():
     ymin = -2
     ymax = 2
     fig, axes = plt.subplots(2, 2)
-    fig.suptitle('Some Sines')
+    fig.suptitle('Some Sines.') 
     axes[0,0].plot(x, np.sin(x), 'g')
     axes[0,0].set_title('Plot A')
     axes[0,0].axis([xmin, xmax, ymin, ymax]) 
@@ -152,19 +152,18 @@ def prob6():
     y = x.copy()
     X, Y = np.meshgrid(x, y)
     Z = np.sin(X) * np.sin(Y) / (X*Y)
-    plt.subplot(221)
+    plt.subplot(121)
     plt.pcolormesh(X, Y, Z, cmap="viridis", shading="auto")
     plt.colorbar()
     plt.xlim(-np.pi, np.pi)
     plt.ylim(-np.pi, np.pi)
     plt.axis("equal")
-    
-    plt.subplot(222)
+
+    plt.subplot(122)
     plt.contour(X, Y, Z, 10, cmap="coolwarm")
     plt.colorbar()
 
-    
-    plt.show
+    plt.show()
 
 prob6()
 
