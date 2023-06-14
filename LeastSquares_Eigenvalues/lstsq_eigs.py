@@ -70,7 +70,7 @@ def line_fit():
     ax1 = plt.subplot(211)
     ax1.plot(data[:,0], data[:,1], 'k', marker='x',lw=2, linestyle="")
     ax1.plot(x,y)
-    plt.show
+    plt.show()
     
 line_fit()
 
@@ -104,9 +104,9 @@ def polynomial_fit():
     ax2.plot(x,f[2](x))
     ax3.plot(data[:,0], data[:,1], 'k', marker='x',lw=2, linestyle="")
     ax3.plot(x,f[3](x))
-    plt.show
+    plt.show()
     
-    fig.show
+    fig.show()
     
 polynomial_fit()
 
@@ -121,6 +121,7 @@ def plot_ellipse(a, b, c, d, e):
 
     plt.plot(r*cos_t, r*sin_t)
     plt.gca().set_aspect("equal", "datalim")
+    plt.show()
 
 # Problem 4
 def ellipse_fit():
